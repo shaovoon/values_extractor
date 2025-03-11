@@ -2,11 +2,177 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <cstring>
 #include <algorithm>
-#include "data_type_ref.h"
+#include <cstdlib>
+#include <cstdint>
 
 namespace values
 {
+	class DataTypeRef
+	{
+	public:
+		~DataTypeRef() {}
+
+		union UNIONPTR
+		{
+			int32_t* pi;
+			uint32_t* pui;
+			int16_t* psi;
+			uint16_t* pusi;
+			int64_t* pi64;
+			uint64_t* pui64;
+			float* pf;
+			double* pd;
+			std::string* ps;
+			std::wstring* pws;
+			char* pc;
+			unsigned char* puc;
+			wchar_t* pwc;
+		};
+
+		enum DTR_TYPE
+		{
+			DTR_INT,
+			DTR_UINT,
+			DTR_SHORT,
+			DTR_USHORT,
+			DTR_INT64,
+			DTR_UINT64,
+			DTR_FLOAT,
+			DTR_DOUBLE,
+			DTR_STR,
+			DTR_WSTR,
+			DTR_CHAR,
+			DTR_UCHAR,
+			DTR_WCHAR
+		};
+
+		DataTypeRef(int32_t& i) { m_ptr.pi = &i; m_type = DTR_INT; }
+
+		DataTypeRef(uint32_t& ui) { m_ptr.pui = &ui; m_type = DTR_UINT; }
+
+		DataTypeRef(int16_t& si) { m_ptr.psi = &si; m_type = DTR_SHORT; }
+
+		DataTypeRef(uint16_t& usi) { m_ptr.pusi = &usi; m_type = DTR_USHORT; }
+
+		DataTypeRef(int64_t& i64) { m_ptr.pi64 = &i64; m_type = DTR_INT64; }
+
+		DataTypeRef(uint64_t& ui64) { m_ptr.pui64 = &ui64; m_type = DTR_UINT64; }
+
+		DataTypeRef(float& f) { m_ptr.pf = &f; m_type = DTR_FLOAT; }
+
+		DataTypeRef(double& d) { m_ptr.pd = &d; m_type = DTR_DOUBLE; }
+
+		DataTypeRef(std::string& s) { m_ptr.ps = &s; m_type = DTR_STR; }
+
+		DataTypeRef(std::wstring& ws) { m_ptr.pws = &ws; m_type = DTR_WSTR; }
+
+		DataTypeRef(char& c) { m_ptr.pc = &c; m_type = DTR_CHAR; }
+
+		DataTypeRef(unsigned char& uc) { m_ptr.puc = &uc; m_type = DTR_UCHAR; }
+
+		DataTypeRef(wchar_t& wc) { m_ptr.pwc = &wc; m_type = DTR_WCHAR; }
+
+		bool ConvStrToType(const std::string& str, bool hex)
+		{
+			using namespace std;
+			int base = hex ? 16 : 10;
+
+			int offset = 0;
+			if (base == 16)
+			{
+				if (str.size() >= 2 && str.at(0) == '0' && str.at(1) == 'x')
+				{
+					offset = 2;
+				}
+			}
+
+			switch (m_type)
+			{
+			case DTR_INT:
+			{
+				*(m_ptr.pi) = strtol(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_UINT:
+			{
+				*(m_ptr.pui) = strtol(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_SHORT:
+			{
+				*(m_ptr.psi) = strtol(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_USHORT:
+			{
+				*(m_ptr.pusi) = strtol(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_FLOAT:
+			{
+				*(m_ptr.pf) = strtof(str.c_str(), nullptr);
+				return true;
+			}
+			case DTR_DOUBLE:
+			{
+				*(m_ptr.pd) = strtod(str.c_str(), nullptr);
+				return true;
+			}
+			case DTR_STR:
+				*(m_ptr.ps) = str;
+				return true;
+			case DTR_WSTR:
+				*(m_ptr.pws) = L"";
+				for (char ch : str)
+					*(m_ptr.pws) += (wchar_t)ch;
+				return true;
+			case DTR_INT64:
+			{
+				*(m_ptr.pi64) = strtoll(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_UINT64:
+			{
+				*(m_ptr.pui64) = strtoull(str.c_str() + offset, nullptr, base);
+				return true;
+			}
+			case DTR_CHAR:
+				if (str.size() > 0)
+				{
+					*(m_ptr.pc) = (char)str[0];
+					return true;
+				}
+				else
+					return false;
+			case DTR_UCHAR:
+				if (str.size() > 0)
+				{
+					*(m_ptr.puc) = (unsigned char)str[0];
+					return true;
+				}
+				else
+					return false;
+			case DTR_WCHAR:
+				if (str.size() > 0)
+				{
+					*(m_ptr.pwc) = str.at(0);
+					return true;
+				}
+				else
+					return false;
+			default:
+				return false;
+			}
+
+			return false;
+		}
+
+		DTR_TYPE m_type;
+
+		UNIONPTR m_ptr;
+	};
 
 	enum class TokenType
 	{

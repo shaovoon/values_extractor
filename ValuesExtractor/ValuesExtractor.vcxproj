@@ -134,8 +134,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="conv.h" />
-    <ClInclude Include="data_type_ref.h" />
     <ClInclude Include="values_extract.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

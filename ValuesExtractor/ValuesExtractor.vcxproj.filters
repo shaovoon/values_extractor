@@ -23,11 +23,5 @@
     <ClInclude Include="values_extract.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="conv.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="data_type_ref.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
