@@ -2,44 +2,44 @@
 #include <iomanip>
 #include "values_extract.h"
 
+
 int main()
 {
-	const char* fmt = "TRADE TradeID:{x}, Price {}, Side: {}, CustID:{h}";
+	const char* fmt = "LOGIN UserName:{}, CustomerID:{x}";
 
-	const std::string input = "2025-02-05 12:10:23.547 TRADE TradeID:5614, Price 12000.50, Side: BUY, CustID:30AB";
+	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
 
-	float price = 0;
-	std::string side;
-	int custID = 0;
+	std::string name;
 
 	using namespace values;
 
-	ValuesExtract(input, fmt, price, side, custID);
+	auto tokens = TokenizeFmtString(fmt);
 
-	std::cout << "Results: " << price << ", " << side << ", " << std::hex << custID << "\n";
+	ValuesExtract(input, tokens, name);
 
-	std::cout << "Done!\n";
+	std::cout << "Results: " << name << "\n";
+
 	return 0;
 }
+
 
 /*
 int main()
 {
-	const char* fmt = "TRADE TradeID:{x}, Price {}, Side: {}, CustID:{h}";
+	const char* fmt = "LOGIN UserName:{}, CustomerID:{x}";
 
-	const std::string input = "2025-02-05 12:10:23.547 TRADE TradeID:5614, Price 12000, Side: BUY, CustID:30AB";
+	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
 
-	int price = 0;
-	std::string side;
-	int custID = 0;
+	//const std::string input = "2025-01-01 12:00:00.001 LOGIN UserName:Sherry Williams, CustomerID:30AB";
+
+	std::string name;
 
 	using namespace values;
 
-	ValuesExtract(input, fmt, price, side, custID);
+	ValuesExtract(input, fmt, name);
 
-	std::cout << "Results: " << price << ", " << side << ", " << std::hex << custID << "\n";
+	std::cout << "Results: " << name << "\n";
 
-	std::cout << "Done!\n";
 	return 0;
 }
 */
@@ -47,23 +47,22 @@ int main()
 /*
 int main()
 {
-	const char* fmt = "{x}My name is {} and gender is {} and has a {} and age is {h}";
-	const std::string input = "123My name is Steven and gender is M and has a badminton and age is 0x30";
+	const char* fmt = "LOGIN UserName:{}, CustomerID:{h}";
+
+	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
+
+	//const std::string input = "2025-01-01 12:00:00.001 LOGIN UserName:Sherry Williams, CustomerID:30AB";
+
+	std::string name;
+
+	int custID = 0;
 
 	using namespace values;
 
-	std::vector<Token> tokens = TokenizeFmtString(fmt);
+	ValuesExtract(input, fmt, name, custID);
 
-	std::string name;
-	std::string gender;
-	std::string hobby;
-	int age = 0;
+	std::cout << "Results: " << name << ", " << std::hex << custID << "\n";
 
-	ValuesExtract(input, tokens, name, gender, hobby, age);
-
-	std::cout << "Results: " << name << ", " << gender << ", " << hobby << ", " << age << "\n";
-
-	std::cout << "Done!\n";
 	return 0;
 }
 */
@@ -71,21 +70,22 @@ int main()
 /*
 int main()
 {
-	const char* fmt = "{x}My name is {} and gender is {} and has a {} and age is {h}";
-	const std::string input = "123My name is Steven and gender is M and has a badminton and age is 0x30";
+	const char* fmt = "REGISTER Name:{}, Age:{}";
+
+	//const std::string input = "REGISTER Name:Sherry, Age:20";
+
+	const std::string input = "2025-01-01 12:00:00.001 REGISTER Name:Sherry, Age:20";
 
 	std::string name;
-	std::string gender;
-	std::string hobby;
+	
 	int age = 0;
 
 	using namespace values;
 
-	ValuesExtract(input, fmt, name, gender, hobby, age);
+	ValuesExtract(input, fmt, name, age);
 
-	std::cout << "Results: " << name << ", " << gender << ", " << hobby << ", " << age << "\n";
+	std::cout << "Results: " << name << ", " << age << "\n";
 
-	std::cout << "Done!\n";
 	return 0;
 }
 */
