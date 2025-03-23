@@ -5,9 +5,10 @@
 
 int main()
 {
-	const char* fmt = "LOGIN UserName:{}, CustomerID:{x}";
+	// test new trim specifier: {t} to trim the string.
+	const char* fmt = "LOGIN UserName:{t}, CustomerID:{x}";
 
-	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
+	const std::string input = "LOGIN UserName: Sherry Williams , CustomerID:30AB";
 
 	std::string name;
 
@@ -17,7 +18,7 @@ int main()
 
 	ValuesExtract(input, tokens, name);
 
-	std::cout << "Results: " << name << "\n";
+	std::cout << "Results: [" << name << "]\n";
 
 	return 0;
 }

@@ -1,6 +1,6 @@
 # Values Extractor
 
-C++ header-only library to extract values from a string. Only basic types (`string`, `int` and `float`) are supported.
+C++11 header-only library to extract values from a string. Only basic types (ASCII `string`, `int` and `float`) are supported.
 
 ```Cpp
 #include <iostream>
@@ -111,5 +111,6 @@ Three extractor specifier are supported.
 * `{}` : to extract substring.
 * `{h}` : to extract hexidecimal substring. Prefix of `0x` is taken care of.
 * `{x}` : to ignore this substring and do not supply a parameter to extract it into.
+* `{t}` : to extract substring and trim it.
 
 __Coming soon__: Example on how to use it to read a file.
