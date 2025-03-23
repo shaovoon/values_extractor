@@ -1,5 +1,5 @@
 // The MIT License (MIT)
-// C++ MIN Unit Test Easier (MINUTE) 0.1.0
+// C++ Values Extractor aka scanf 0.1.0
 // Copyright (C) 2025, by Wong Shao Voon (shaovoon@yahoo.com)
 //
 // http://opensource.org/licenses/MIT
