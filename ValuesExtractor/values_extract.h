@@ -299,8 +299,25 @@ namespace values
 			vec.push_back(a);
 		}
 
-		std::sort(vec.begin(), vec.end(), [](const Token& a, const Token& b)
-			{ return a.start < b.start; });
+		int countDiffTokenType = 0;
+		if (vecMatter.size() > 0)
+			countDiffTokenType++;
+		if (vecHex.size() > 0)
+			countDiffTokenType++;
+		if (vecX.size() > 0)
+			countDiffTokenType++;
+		if (vecTrim.size() > 0)
+			countDiffTokenType++;
+
+		if (countDiffTokenType > 1)
+		{
+			if (std::is_sorted(vec.begin(), vec.end(), [](const Token& a, const Token& b)
+				{ return a.start < b.start; }) == false)
+			{
+				std::sort(vec.begin(), vec.end(), [](const Token& a, const Token& b)
+					{ return a.start < b.start; });
+			}
+		}
 
 		for (size_t i = 0; i < vec.size(); ++i)
 		{
