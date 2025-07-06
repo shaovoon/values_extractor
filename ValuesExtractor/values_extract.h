@@ -463,7 +463,10 @@ namespace values
 				std::string res;
 				if (prefix_pos != std::string::npos)
 				{
-					res = input.substr(prefix_pos, postfix_pos - prefix_pos);
+					if (postfix_pos == std::string::npos)
+						res = input.substr(prefix_pos);
+					else
+						res = input.substr(prefix_pos, postfix_pos - prefix_pos);
 					//std::cout << "results: " << res << "\n";
 					if (curr.index != -1)
 					{
