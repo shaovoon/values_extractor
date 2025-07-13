@@ -1,92 +1,163 @@
 #include <iostream>
 #include <iomanip>
+#include "unittest.h"
 #include "values_extract.h"
 
+using namespace values;
 
-int main()
+void Integer()
 {
-	// test new trim specifier: {t} to trim the string.
-	const char* fmt = "LOGIN UserName:{t}, CustomerID:{x}";
+	const char* fmt = "ID:{}";
 
-	const std::string input = "LOGIN UserName: Sherry Williams , CustomerID:30AB";
+	const std::string input = "ID:123";
 
-	std::string name;
+	int id = 0;
 
-	using namespace values;
+	ValuesExtract(input, fmt, id);
 
-	auto tokens = TokenizeFmtString(fmt);
+	CHECK(id, == , 123);
+}
 
-	ValuesExtract(input, tokens, name);
+void String()
+{
+	const char* fmt = "ID:{}";
 
-	std::cout << "Results: [" << name << "]\n";
+	const std::string input = "ID:123";
 
-	return 0;
+	std::string id;
+
+	ValuesExtract(input, fmt, id);
+
+	CHECK(id, == , "123");
+}
+
+void StringWithTimestamp()
+{
+	const char* fmt = "ID:{}";
+
+	const std::string input = "2025-01-01 10:00:56 ID:123";
+
+	std::string id;
+
+	ValuesExtract(input, fmt, id);
+
+	CHECK(id, == , "123");
+}
+
+void StringWithSuffix()
+{
+	const char* fmt = "ID:{} or OAuth Login";
+
+	const std::string input = "ID:123 or OAuth Login";
+
+	std::string id;
+
+	ValuesExtract(input, fmt, id);
+
+	CHECK(id, == , "123");
 }
 
 
-/*
-int main()
+void TrimString()
 {
-	const char* fmt = "LOGIN UserName:{}, CustomerID:{x}";
+	const char* fmt = "Name:{t}";
 
-	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
-
-	//const std::string input = "2025-01-01 12:00:00.001 LOGIN UserName:Sherry Williams, CustomerID:30AB";
+	const std::string input = "Name:  Sherry William  ";
 
 	std::string name;
-
-	using namespace values;
 
 	ValuesExtract(input, fmt, name);
 
-	std::cout << "Results: " << name << "\n";
-
-	return 0;
+	CHECK(name, == , "Sherry William");
 }
-*/
 
-/*
+void HexString()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:0xA";
+
+	int hex = 0;
+
+	ValuesExtract(input, fmt, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void HexString2()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:A";
+
+	int hex = 0;
+
+	ValuesExtract(input, fmt, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void HexString3()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:a";
+
+	int hex = 0;
+
+	ValuesExtract(input, fmt, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void IgnoreVariable()
+{
+	const char* fmt = "CustID:{x}, Binary:{h}";
+
+	const std::string input = "CustID:234, Binary:a";
+
+	int hex = 0;
+
+	ValuesExtract(input, fmt, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void ThreeVariable()
+{
+	const char* fmt = "Name:{t}, Gender:{}, Salary:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:F, Salary:3600";
+
+	std::string Name;
+
+	char Gender = 'A';
+
+	int Salary = 0;
+
+	ValuesExtract(input, fmt, Name, Gender, Salary);
+
+	CHECK(Name, == , "Sherry William");
+
+	CHECK(Gender, == , 'F');
+
+	CHECK(Salary, == , 3600);
+}
+
 int main()
 {
-	const char* fmt = "LOGIN UserName:{}, CustomerID:{h}";
+	UnitTest::Add("SingleVariable", "Integer", Integer);
+	UnitTest::Add("SingleVariable", "String", String);
+	UnitTest::Add("SingleVariable", "StringWithTimestamp", StringWithTimestamp);
+	UnitTest::Add("SingleVariable", "StringWithSuffix", StringWithSuffix);
+	UnitTest::Add("SingleVariable", "TrimString", TrimString);
+	UnitTest::Add("SingleVariable", "HexString", HexString);
+	UnitTest::Add("SingleVariable", "HexString2", HexString2);
+	UnitTest::Add("SingleVariable", "HexString3", HexString3);
+	UnitTest::Add("SingleVariable", "IgnoreVariable", IgnoreVariable);
 
-	const std::string input = "LOGIN UserName:Sherry Williams, CustomerID:30AB";
+	UnitTest::Add("MuiltiVariable", "ThreeVariable", ThreeVariable);
 
-	//const std::string input = "2025-01-01 12:00:00.001 LOGIN UserName:Sherry Williams, CustomerID:30AB";
-
-	std::string name;
-
-	int custID = 0;
-
-	using namespace values;
-
-	ValuesExtract(input, fmt, name, custID);
-
-	std::cout << "Results: " << name << ", " << std::hex << custID << "\n";
-
-	return 0;
+	// RunAllTests() return number of errors
+	return UnitTest::RunAllTests();
 }
-*/
-
-/*
-int main()
-{
-	const char* fmt = "REGISTER Name:{}, Age:{}";
-
-	//const std::string input = "REGISTER Name:Sherry, Age:20";
-
-	const std::string input = "2025-01-01 12:00:00.001 REGISTER Name:Sherry, Age:20";
-
-	std::string name;
-	
-	int age = 0;
-
-	using namespace values;
-
-	ValuesExtract(input, fmt, name, age);
-
-	std::cout << "Results: " << name << ", " << age << "\n";
-
-	return 0;
-}
-*/
