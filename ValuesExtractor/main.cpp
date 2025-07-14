@@ -144,6 +144,165 @@ void ThreeVariable()
 	CHECK(Salary, == , 3600);
 }
 
+void IntegerTokenized()
+{
+	const char* fmt = "ID:{}";
+
+	const std::string input = "ID:123";
+
+	int id = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, id);
+
+	CHECK(id, == , 123);
+}
+
+void StringTokenized()
+{
+	const char* fmt = "ID:{}";
+
+	const std::string input = "ID:123";
+
+	std::string id;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, id);
+
+	CHECK(id, == , "123");
+}
+
+void StringWithTimestampTokenized()
+{
+	const char* fmt = "ID:{}";
+
+	const std::string input = "2025-01-01 10:00:56 ID:123";
+
+	std::string id;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, id);
+
+	CHECK(id, == , "123");
+}
+
+void StringWithSuffixTokenized()
+{
+	const char* fmt = "ID:{} or OAuth Login";
+
+	const std::string input = "ID:123 or OAuth Login";
+
+	std::string id;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, id);
+
+	CHECK(id, == , "123");
+}
+
+
+void TrimStringTokenized()
+{
+	const char* fmt = "Name:{t}";
+
+	const std::string input = "Name:  Sherry William  ";
+
+	std::string name;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, name);
+
+	CHECK(name, == , "Sherry William");
+}
+
+void HexStringTokenized()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:0xA";
+
+	int hex = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void HexStringTokenized2()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:A";
+
+	int hex = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void HexStringTokenized3()
+{
+	const char* fmt = "Binary:{h}";
+
+	const std::string input = "Binary:a";
+
+	int hex = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void IgnoreVariableTokenized()
+{
+	const char* fmt = "CustID:{x}, Binary:{h}";
+
+	const std::string input = "CustID:234, Binary:a";
+
+	int hex = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, hex);
+
+	CHECK(hex, == , 10);
+}
+
+void ThreeVariableTokenized()
+{
+	const char* fmt = "Name:{t}, Gender:{}, Salary:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:F, Salary:3600";
+
+	std::string Name;
+
+	char Gender = 'A';
+
+	int Salary = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, Name, Gender, Salary);
+
+	CHECK(Name, == , "Sherry William");
+
+	CHECK(Gender, == , 'F');
+
+	CHECK(Salary, == , 3600);
+}
+
 int main()
 {
 	UnitTest::Add("SingleVariable", "Integer", Integer);
@@ -157,6 +316,18 @@ int main()
 	UnitTest::Add("SingleVariable", "IgnoreVariable", IgnoreVariable);
 
 	UnitTest::Add("MuiltiVariable", "ThreeVariable", ThreeVariable);
+
+	UnitTest::Add("Tokens", "IntegerTokenized", IntegerTokenized);
+	UnitTest::Add("Tokens", "StringTokenized", StringTokenized);
+	UnitTest::Add("Tokens", "StringWithTimestampTokenized", StringWithTimestampTokenized);
+	UnitTest::Add("Tokens", "StringWithSuffixTokenized", StringWithSuffixTokenized);
+	UnitTest::Add("Tokens", "TrimStringTokenized", TrimStringTokenized);
+	UnitTest::Add("Tokens", "HexStringTokenized", HexStringTokenized);
+	UnitTest::Add("Tokens", "HexStringTokenized2", HexStringTokenized2);
+	UnitTest::Add("Tokens", "HexStringTokenized3", HexStringTokenized3);
+	UnitTest::Add("Tokens", "IgnoreVariableTokenized", IgnoreVariableTokenized);
+
+	UnitTest::Add("Tokens", "ThreeVariableTokenized", ThreeVariableTokenized);
 
 	// RunAllTests() return number of errors
 	return UnitTest::RunAllTests();
