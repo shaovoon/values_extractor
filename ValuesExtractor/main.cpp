@@ -303,6 +303,30 @@ void ThreeVariableTokenized()
 	CHECK(Salary, == , 3600);
 }
 
+void IsInputMatchedFmtTest()
+{
+	const char* fmt = "Name:{t}, Gender:{}, Salary:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:F, Salary:3600";
+
+	bool result = IsInputMatchedFmt(input, fmt);
+
+	CHECK(result, == , true);
+}
+
+void IsInputMatchedTokensTest()
+{
+	const char* fmt = "Name:{t}, Gender:{}, Salary:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:F, Salary:3600";
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	bool result = IsInputMatchedTokens(input, tokens);
+
+	CHECK(result, == , true);
+}
+
 int main()
 {
 	UnitTest::Add("SingleVariable", "Integer", Integer);
@@ -316,6 +340,8 @@ int main()
 	UnitTest::Add("SingleVariable", "IgnoreVariable", IgnoreVariable);
 
 	UnitTest::Add("MuiltiVariable", "ThreeVariable", ThreeVariable);
+	UnitTest::Add("MuiltiVariable", "IsInputMatchedFmtTest", IsInputMatchedFmtTest);
+	UnitTest::Add("MuiltiVariable", "IsInputMatchedTokensTest", IsInputMatchedTokensTest);
 
 	UnitTest::Add("Tokens", "IntegerTokenized", IntegerTokenized);
 	UnitTest::Add("Tokens", "StringTokenized", StringTokenized);

@@ -504,4 +504,71 @@ namespace values
 		detail::ValuesExtractHelp(input, tokens, results);
 	}
 
+	bool IsInputMatchedFmt(const std::string& input, const char* fmt)
+	{
+		std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+		size_t pos = 0;
+		size_t prev_pos = 0;
+		for (const auto& token : tokens)
+		{
+			if (token.prefix.empty() == false)
+			{
+				pos = input.find(token.prefix, prev_pos);
+
+				if (pos != std::string::npos)
+				{
+					if (pos < prev_pos)
+						return false;
+				}
+				prev_pos = pos;
+			}
+
+			if (token.postfix.empty() == false)
+			{
+				pos = input.find(token.postfix, prev_pos);
+
+				if (pos != std::string::npos)
+				{
+					if (pos < prev_pos)
+						return false;
+				}
+				prev_pos = pos;
+			}
+		}
+		return true;
+	}
+	bool IsInputMatchedTokens(const std::string& input, const std::vector<Token>& tokens)
+	{
+		size_t pos = 0;
+		size_t prev_pos = 0;
+		for (const auto& token : tokens)
+		{
+			if (token.prefix.empty() == false)
+			{
+				pos = input.find(token.prefix, prev_pos);
+
+				if (pos != std::string::npos)
+				{
+					if (pos < prev_pos)
+						return false;
+				}
+				prev_pos = pos;
+			}
+
+			if (token.postfix.empty() == false)
+			{
+				pos = input.find(token.postfix, prev_pos);
+
+				if (pos != std::string::npos)
+				{
+					if (pos < prev_pos)
+						return false;
+				}
+				prev_pos = pos;
+			}
+		}
+		return true;
+	}
+
 }
