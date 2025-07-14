@@ -521,6 +521,9 @@ namespace values
 					if (pos < prev_pos)
 						return false;
 				}
+				else
+					return false;
+
 				prev_pos = pos;
 			}
 
@@ -533,6 +536,9 @@ namespace values
 					if (pos < prev_pos)
 						return false;
 				}
+				else
+					return false;
+
 				prev_pos = pos;
 			}
 		}
@@ -553,6 +559,9 @@ namespace values
 					if (pos < prev_pos)
 						return false;
 				}
+				else
+					return false;
+
 				prev_pos = pos;
 			}
 
@@ -565,6 +574,9 @@ namespace values
 					if (pos < prev_pos)
 						return false;
 				}
+				else
+					return false;
+
 				prev_pos = pos;
 			}
 		}
