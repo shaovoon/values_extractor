@@ -351,6 +351,48 @@ void IsInputMatchedTokensFailTest()
 	CHECK(result, == , false);
 }
 
+void EmptyTokenized()
+{
+	const char* fmt = "Name:{t}, Gender:{}, Salary:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:, Salary:3600";
+
+	std::string Name;
+
+	std::string Gender = "A";
+
+	int Salary = 0;
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, Name, Gender, Salary);
+
+	CHECK(Name, == , "Sherry William");
+
+	CHECK(Gender, == , "");
+
+	CHECK(Salary, == , 3600);
+}
+
+void LastEmptyTokenized()
+{
+	const char* fmt = "Name:{t}, Gender:{}";
+
+	const std::string input = "Name:  Sherry William  , Gender:";
+
+	std::string Name;
+
+	std::string Gender = "A";
+
+	std::vector<Token> tokens = TokenizeFmtString(fmt);
+
+	ValuesExtract(input, tokens, Name, Gender);
+
+	CHECK(Name, == , "Sherry William");
+
+	CHECK(Gender, == , "");
+}
+
 int main()
 {
 	UnitTest::Add("SingleVariable", "Integer", Integer);
@@ -380,6 +422,8 @@ int main()
 	UnitTest::Add("Tokens", "IgnoreVariableTokenized", IgnoreVariableTokenized);
 
 	UnitTest::Add("Tokens", "ThreeVariableTokenized", ThreeVariableTokenized);
+	UnitTest::Add("Tokens", "EmptyTokenized", EmptyTokenized);
+	UnitTest::Add("Tokens", "LastEmptyTokenized", LastEmptyTokenized);
 
 	// RunAllTests() return number of errors
 	return UnitTest::RunAllTests();

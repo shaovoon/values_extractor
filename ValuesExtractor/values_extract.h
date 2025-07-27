@@ -148,6 +148,14 @@ namespace values
 				}
 			}
 
+			if (m_type != DTR_STR && m_type != DTR_WSTR)
+			{
+				if (str.empty())
+				{
+					throw std::runtime_error("Value is a empty string!");
+				}
+			}
+
 			switch (m_type)
 			{
 			case DTR_INT:
@@ -451,8 +459,16 @@ namespace values
 
 					if (postfix_pos == std::string::npos)
 					{
-						std::cerr << "postfix_pos Error\n";
-						return;
+						postfix_pos = prefix_pos;
+						if (curr.postfix.empty() == false)
+						{
+							postfix_pos = input.find(curr.postfix, postfix_pos);
+						}
+						if (postfix_pos == std::string::npos)
+						{
+							std::cerr << "postfix_pos Error\n";
+							return;
+						}
 					}
 				}
 				else
@@ -467,7 +483,6 @@ namespace values
 						res = input.substr(prefix_pos);
 					else
 						res = input.substr(prefix_pos, postfix_pos - prefix_pos);
-					//std::cout << "results: " << res << "\n";
 					if (curr.index != -1)
 					{
 						results.at(curr.index).ConvStrToType(res, curr.type);
@@ -487,8 +502,6 @@ namespace values
 
 		detail::AddData(results, args...);
 
-		//std::cout << "vec size(): " << results.size() << "\n";
-
 		detail::ValuesExtractHelp(input, tokens, results);
 	}
 
@@ -498,8 +511,6 @@ namespace values
 		std::vector<DataTypeRef> results;
 
 		detail::AddData(results, args...);
-
-		//std::cout << "vec size(): " << results.size() << "\n";
 
 		detail::ValuesExtractHelp(input, tokens, results);
 	}
