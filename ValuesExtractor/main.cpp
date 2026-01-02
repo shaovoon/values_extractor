@@ -13,9 +13,16 @@ void Integer()
 
 	int id = 0;
 
-	ValuesExtract(input, fmt, id);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(id, == , 123);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, id);
+
+		CHECK(id, == , 123);
+	}
 }
 
 void String()
@@ -26,9 +33,16 @@ void String()
 
 	std::string id;
 
-	ValuesExtract(input, fmt, id);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 void StringWithTimestamp()
@@ -39,9 +53,16 @@ void StringWithTimestamp()
 
 	std::string id;
 
-	ValuesExtract(input, fmt, id);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 void StringWithSuffix()
@@ -52,9 +73,16 @@ void StringWithSuffix()
 
 	std::string id;
 
-	ValuesExtract(input, fmt, id);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 
@@ -66,9 +94,16 @@ void TrimString()
 
 	std::string name;
 
-	ValuesExtract(input, fmt, name);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(name, == , "Sherry William");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, name);
+
+		CHECK(name, == , "Sherry William");
+	}
 }
 
 void HexString()
@@ -79,9 +114,16 @@ void HexString()
 
 	int hex = 0;
 
-	ValuesExtract(input, fmt, hex);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void HexString2()
@@ -92,9 +134,16 @@ void HexString2()
 
 	int hex = 0;
 
-	ValuesExtract(input, fmt, hex);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void HexString3()
@@ -105,9 +154,16 @@ void HexString3()
 
 	int hex = 0;
 
-	ValuesExtract(input, fmt, hex);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void IgnoreVariable()
@@ -118,9 +174,16 @@ void IgnoreVariable()
 
 	int hex = 0;
 
-	ValuesExtract(input, fmt, hex);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void ThreeVariable()
@@ -135,13 +198,20 @@ void ThreeVariable()
 
 	int Salary = 0;
 
-	ValuesExtract(input, fmt, Name, Gender, Salary);
+	bool isMatched = IsInputMatchedFmt(input, fmt);
 
-	CHECK(Name, == , "Sherry William");
+	CHECK(isMatched, == , true);
 
-	CHECK(Gender, == , 'F');
+	if (isMatched)
+	{
+		ValuesExtract(input, fmt, Name, Gender, Salary);
 
-	CHECK(Salary, == , 3600);
+		CHECK(Name, == , "Sherry William");
+
+		CHECK(Gender, == , 'F');
+
+		CHECK(Salary, == , 3600);
+	}
 }
 
 void IntegerTokenized()
@@ -154,9 +224,16 @@ void IntegerTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, id);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(id, == , 123);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, id);
+
+		CHECK(id, == , 123);
+	}
 }
 
 void StringTokenized()
@@ -169,9 +246,16 @@ void StringTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, id);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 void StringWithTimestampTokenized()
@@ -184,9 +268,16 @@ void StringWithTimestampTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, id);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 void StringWithSuffixTokenized()
@@ -199,9 +290,16 @@ void StringWithSuffixTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, id);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(id, == , "123");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, id);
+
+		CHECK(id, == , "123");
+	}
 }
 
 
@@ -215,9 +313,16 @@ void TrimStringTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, name);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(name, == , "Sherry William");
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, name);
+
+		CHECK(name, == , "Sherry William");
+	}
 }
 
 void HexStringTokenized()
@@ -230,9 +335,16 @@ void HexStringTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, hex);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void HexStringTokenized2()
@@ -245,9 +357,16 @@ void HexStringTokenized2()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, hex);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void HexStringTokenized3()
@@ -260,9 +379,16 @@ void HexStringTokenized3()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, hex);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void IgnoreVariableTokenized()
@@ -275,9 +401,16 @@ void IgnoreVariableTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, hex);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(hex, == , 10);
+	CHECK(isMatched, == , true);
+
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, hex);
+
+		CHECK(hex, == , 10);
+	}
 }
 
 void ThreeVariableTokenized()
@@ -294,13 +427,20 @@ void ThreeVariableTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, Name, Gender, Salary);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(Name, == , "Sherry William");
+	CHECK(isMatched, == , true);
 
-	CHECK(Gender, == , 'F');
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, Name, Gender, Salary);
 
-	CHECK(Salary, == , 3600);
+		CHECK(Name, == , "Sherry William");
+
+		CHECK(Gender, == , 'F');
+
+		CHECK(Salary, == , 3600);
+	}
 }
 
 void IsInputMatchedFmtTest()
@@ -365,13 +505,20 @@ void EmptyTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, Name, Gender, Salary);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(Name, == , "Sherry William");
+	CHECK(isMatched, == , true);
 
-	CHECK(Gender, == , "");
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, Name, Gender, Salary);
 
-	CHECK(Salary, == , 3600);
+		CHECK(Name, == , "Sherry William");
+
+		CHECK(Gender, == , "");
+
+		CHECK(Salary, == , 3600);
+	}
 }
 
 void LastEmptyTokenized()
@@ -386,11 +533,18 @@ void LastEmptyTokenized()
 
 	std::vector<Token> tokens = TokenizeFmtString(fmt);
 
-	ValuesExtract(input, tokens, Name, Gender);
+	bool isMatched = IsInputMatchedTokens(input, tokens);
 
-	CHECK(Name, == , "Sherry William");
+	CHECK(isMatched, == , true);
 
-	CHECK(Gender, == , "");
+	if (isMatched)
+	{
+		ValuesExtract(input, tokens, Name, Gender);
+
+		CHECK(Name, == , "Sherry William");
+
+		CHECK(Gender, == , "");
+	}
 }
 
 int main()

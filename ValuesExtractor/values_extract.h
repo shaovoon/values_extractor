@@ -170,12 +170,12 @@ namespace values
 			}
 			case DTR_SHORT:
 			{
-				*(m_ptr.psi) = strtol(str.c_str() + offset, nullptr, base);
+				*(m_ptr.psi) = (int16_t)(strtol(str.c_str() + offset, nullptr, base));
 				return true;
 			}
 			case DTR_USHORT:
 			{
-				*(m_ptr.pusi) = strtol(str.c_str() + offset, nullptr, base);
+				*(m_ptr.pusi) = (uint16_t)(strtol(str.c_str() + offset, nullptr, base));
 				return true;
 			}
 			case DTR_FLOAT:
